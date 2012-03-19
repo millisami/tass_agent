@@ -4,7 +4,12 @@
 .config
 coverage
 InstalledFiles
-lib/bundler/man
+.yardoc
+Gemfile.lock
+InstalledFiles
+_yardoc
+coverage
+doc/
 pkg
 rdoc
 spec/reports
