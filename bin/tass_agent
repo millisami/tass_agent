@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+
+ENV['BUNDLE_GEMFILE'] = File.expand_path('../../Gemfile', __FILE__)
+$:.unshift File.expand_path('../../lib', __FILE__)
+require 'rubygems' unless defined?(Gem)
+require 'forever'
+require 'tass_agent'
+
+Forever.run do
+  before :all do
+    puts "Starting TASS agent..."
+  end
+  
+  every 10.seconds do
+    TassAgent.run
+  end
+
+  on_error do |e|
+    puts "Error: #{e.message}"
+    puts "%s\n  %s" % [e.message, e.backtrace.join("\n  ")]
+    
+    Mail.deliver do
+      delivery_method :sendmail, :location => `which sendmail`.chomp
+      to      "millisami@gmail.com"
+      from    "exceptions@example.com"
+      subject "[TASS agent] #{e.message}"
+      body    "%s\n  %s" % [e.message, e.backtrace.join("\n  ")]
+    end
+  end
+
+  on_exit do
+    puts "Bye bye"
+  end
+end
