@@ -14,4 +14,13 @@ Gem::Specification.new do |gem|
   gem.name          = "tass_agent"
   gem.require_paths = ["lib"]
   gem.version       = TassAgent::VERSION
+  
+  gem.add_dependency 'foreverb', '~>0.3.0'
+  
+  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'pry'
+  gem.add_development_dependency 'pry-nav'
+  gem.add_development_dependency 'guard-rspec'
+  gem.add_development_dependency 'timecop'
+  
 end
